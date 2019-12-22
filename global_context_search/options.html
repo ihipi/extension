@@ -4,7 +4,7 @@
     <title>Global Context Search</title>
     <style>
     body {
-      min-width: 300px;
+      min-width: 500px;
       font-size: 15px;
     }
     input {
@@ -18,18 +18,33 @@
       margin: 5px;
     }
     </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
   </head>
 
   <body>
-    <h2>ECI REST API</h2>
-    <h3>Opciones</h3>
-    <form id="form">
-      <input type="text" name="idToSearch" id="idToSearch" placeholder="Id para buscar">
+    <div class="container">
+
+    <p class="h2">ECI REST API</p>
+    <p class="h3">Opciones</p>
+    <form id="form"  class="form-inline">
+      <div>
+        <label for="idToSearch">Id to Search</label>
+        <input class="form-control"  type="text" name="idToSearch" id="idToSearch" placeholder="Id para buscar">
+        <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+
+      </div>
+      
     </form>
 
 
     <button type='submit' value='Submit' id='optionsSubmit'>Submit</button>
+    </div>
   </body>
-  <script src="locales.js"></script>
-  <script src="options.js"></script>
+
+  <script src="jquery-3.3.1.slim.min.js" ></script>
+<script src="popper.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="locales.js"></script>
+<script src="options.js"></script>
 </html>

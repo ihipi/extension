@@ -18,35 +18,48 @@ function createForm() {
       radio.type = 'radio';
       radio.name = "searchType";
       radio.id = searchKey;
-      radio.value = kSearchType[searchKey];
+      radio.value = searchKey;
+      if(selSearchEndPoint == searchKey){
+        radio.checked = true;
+      }
       let span = document.createElement('span');
       span.textContent = kSearchType[searchKey];
       div.appendChild(radio);
       div.appendChild(span);
       divSearch.appendChild(div);
     }
+    chrome.storage.sync.get(['selectedSearchType'], function(result) {
+      console.log('Value currently is ' + result.key);
+    });
     form.appendChild(divSearch);
 
-      //Location
-      let host = document.createElement('div');
-      let hostLabel = document.createElement('label');
-      hostLabel.innerText = "Entorno";
-      host.appendChild(hostLabel);
+    //Location
+    var sel = $('<select>').appendTo('form');
+  
       for (let hostKey of Object.keys(kEnvironment)) {
-        let div = document.createElement('div');
-        let radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = "searchType";
-        radio.value = kEnvironment[hostKey]["name"];
-        let span = document.createElement('span');
-        span.textContent = kEnvironment[hostKey]["name"];
-        div.appendChild(radio);
-        div.appendChild(span);
-        host.appendChild(div);
+        console.log(kEnvironment[hostKey]["name"]);
+        sel.append($("<option>").attr('value', hostKey).text(kEnvironment[hostKey]["name"]));
       }
-      form.appendChild(host);
-  
-  
+    
+    /*       let host = document.createElement('div');
+          let hostLabel = document.createElement('label');
+          hostLabel.innerText = "Entorno";
+          host.appendChild(hostLabel);
+          for (let hostKey of Object.keys(kEnvironment)) {
+            let div = document.createElement('div');
+            let radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = "searchType";
+            radio.value = kEnvironment[hostKey]["name"];
+            let span = document.createElement('span');
+            span.textContent = kEnvironment[hostKey]["name"];
+            div.appendChild(radio);
+            div.appendChild(span);
+            host.appendChild(div);
+          }
+          form.appendChild(host); */
+
+
 
     //pushSite
     let divPush = document.createElement('div');
@@ -60,7 +73,7 @@ function createForm() {
       radio.type = 'radio';
       radio.name = "push";
       radio.value = kPushSite[key];
-      if("eciStore" === kPushSite[key]){
+      if ("eciStore" === kPushSite[key]) {
         radio.checked = true;
       }
       let span = document.createElement('span');
@@ -78,18 +91,23 @@ function createForm() {
 createForm();
 
 document.getElementById('idToSearch').onchange = function () {
-  let text = document.getElementsByTagName('idToSearch').innerText;
+  let text = $('#idToSearch').val();
   var starts = /^\d/;
-  if(text.match(starts) ){
-    if(text.str.length === 18){
-      document.getElementById('eciRef').checked;
+  if (text.match(starts) != null) {
+    if (text.length === 18) {
+      document.getElementById('eciRef').checked = true;
     } else {
-      document.getElementById('skuId').checked;
+      document.getElementById('skuId').checked = true;
     }
   } else {
-    document.getElementById('productId').checked;
+
+    document.getElementById('productId').checked = true;
   }
-  chrome.storage.sync.set({ removedContextMenu: removed });
-  window.close();
+  let sst = $('input[name=searchType]:checked', '#form').val();
+  chrome.storage.sync.set({ "selectedSearchType" : sst },function() {
+    console.log('Value is set to ' + sst);
+  });
+  selSearchEndPoint = sst;
+  //createForm();
 }
 

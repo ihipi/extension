@@ -23,7 +23,12 @@ const kEnvironment = {
 }
 
 const kSearchType = {
-  "productId": "productId",
-  "skuId": "skuId",
-  "eciRef": "eciRef" 
+  "productId": "endpointPId",
+  "skuId": "endpointSkuId",
+  "eciRef": "endPointEciRef",
+  "orederId":"endPointOrderId",
+  "PDP":"endpointPDP",
+  "PLP":"endpointPLP" 
 }
+
+var selSearchEndPoint = "";
