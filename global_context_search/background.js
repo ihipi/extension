@@ -29,7 +29,7 @@ chrome.contextMenus.onClicked.addListener(function (item, tab) {
 chrome.storage.onChanged.addListener(function (list, sync) {
   let newlyDisabled = [];
   let newlyEnabled = [];
-  let currentRemoved = list.removedContextMenu.newValue;
+/*   let currentRemoved = list.removedContextMenu.newValue;
   let oldRemoved = list.removedContextMenu.oldValue || [];
   for (let key of Object.keys(kPushSite)) {
     if (currentRemoved.includes(key) && !oldRemoved.includes(key)) {
@@ -40,7 +40,7 @@ chrome.storage.onChanged.addListener(function (list, sync) {
         title: kPushSite[key]
       });
     }
-  }
+  } */
   for (let locale of newlyEnabled) {
     chrome.contextMenus.create({
       id: locale.id,

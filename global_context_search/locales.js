@@ -15,20 +15,56 @@ const kEnvironment = {
   },
   "uat1": {
     "name":"UAT001",
-    "protocol":"https",
-    "host": "uatHost",
-    "port": "8881"
+    "protocol":"http",
+    "host": "node1.uat001.azure.cloud.elcorteingles.es",
+    "port": "10585"
+  },
+  "uat2": {
+    "name":"UAT002",
+    "protocol":"http",
+    "host": "node1.uat002.azure.cloud.elcorteingles.es",
+    "port": "10585"
+  },
+  "nft": {
+    "name":"NFT",
+    "protocol":"http",
+    "host": "mx0000001811004.eci.geci",
+    "port": "10585"
+  },  
+  "pro": {
+    "name":"PROD",
+    "protocol":"http",
+    "host": "mx0000001811005.eci.geci",
+    "port": "10585"
   }
-
 }
 
 const kSearchType = {
-  "productId": "endpointPId",
-  "skuId": "endpointSkuId",
-  "eciRef": "endPointEciRef",
-  "orederId":"endPointOrderId",
-  "PDP":"endpointPDP",
-  "PLP":"endpointPLP" 
+  "productId": "/rest/repository/atg/commerce/catalog/ProductCatalog/product/{{id}}",
+  "skuId": "/rest/repository/atg/commerce/catalog/ProductCatalog/sku/{{id}}",
+  "eciRef": '/rest/repository/atg/commerce/catalog/ProductCatalog/sku/?atg-rest-rql=eciref%20STARTS%20WITH%20"{{id}}"',
+  "orederId":"/rest/repository/atg/commerce/order/OrderRepository/order/{{id}}",
+  "PDP":"/ecommerce/product/{{id}}?siteId=eciStore",
+  "PLP":"/ecommerce/category/{{id}}/products?size=24&siteId=eciStore" 
 }
 
 var selSearchEndPoint = "";
+/* 
+HOST
+http://node1.uat001.azure.cloud.elcorteingles.es:10585/dyn/admin/
+http://node1.uat002.azure.cloud.elcorteingles.es:10585/dyn/admin/
+http://mx0000001811004.eci.geci:10585/dyn/admin/
+
+http://mx0000001811005.eci.geci/
+ENDPOINT
+
+http://mx0301001811005.eci.geci/ecommerce/product/A23880801?siteId=eciStore
+http://mx0301001811005.eci.geci/ecommerce/category/999.54130013/products?size=24&siteId=eciStore
+http://mx0000001811005.eci.geci:10580/rest/repository/atg/commerce/order/OrderRepository/order/o15190002?pushSite=eciStore
+http://mx0000001811005.eci.geci:10580/rest/repository/atg/commerce/catalog/ProductCatalog/sku/?atg-rest-rql=eciref%20STARTS%20WITH%20%22001019510114259%22
+http://mx0000001811005.eci.geci:10580/rest/repository/atg/commerce/catalog/ProductCatalog/sku/24218828001
+http://mx0000001811005.eci.geci:10580/rest/repository/atg/commerce/catalog/ProductCatalog/product/A12946144?pushSite=eciStore
+http://mx0301001811005.eci.geci/ecommerce/product/A23880801?siteId=eciStore
+http://mx0301001811005.eci.geci/ecommerce/category/999.54130013/products?size=24&siteId=eciStore
+ */
+

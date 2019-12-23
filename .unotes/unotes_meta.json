@@ -1,0 +1,27 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "global_context_search": {
+      "name": "global_context_search",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "newtab_search": {
+      "name": "newtab_search",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "INCIDENCIAS": {
+      "name": "INCIDENCIAS",
+      "isOrdered": true,
+      "folders": {},
+      "files": {
+        "INC000006291120": 0
+      }
+    }
+  },
+  "files": {}
+}

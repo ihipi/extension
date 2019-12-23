@@ -4,7 +4,7 @@
   "version": "1.0",
   "manifest_version": 2,
   "options_page": "options.html",
-  "permissions": ["contextMenus", "storage"],
+  "permissions": ["contextMenus", "storage","clipboardWrite","clipboardRead"],
   "background": {
     "scripts": [ "jquery-3.3.1.slim.min.js", "popper.min.js", "bootstrap.min.js","locales.js", "background.js"],
     "persistent": false
