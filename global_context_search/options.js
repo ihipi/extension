@@ -31,73 +31,33 @@ function createForm() {
       });
 
       //SearchType
-      var sel = $('<select>').attr("id", "selectSearch").appendTo('form');
+      var sel = $('<select  class="custom-select">').attr("id", "selectSearch").appendTo('form');
 
       for (let searchtKey of Object.keys(kSearchType)) {
         sel.append($("<option>").attr('value', searchtKey).text(searchtKey));
       }
+      selectSearchTpeByInputID();
 
-
-      /*     let divSearch = document.createElement('div');
-          let searchType = document.createElement('label');
-          searchType.innerText = "Search Type";
-          divSearch.appendChild(searchType);
-          divSearch.classList.add('col-sm-10');
-      
-          for (let searchKey of Object.keys(kSearchType)) {
-      
-            var radioBtn = $('<input type="radio" class="form-check-input" name="rbtnCount" value="' + searchKey + '">' + searchKey + '</input>');
-            radioBtn.appendTo(divSearch);
-            
-          } */
-
-      /* 
-          for (let searchKey of Object.keys(kSearchType)) {
-            let div = document.createElement('div');
-            let radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.name = "searchType";
-            radio.id = searchKey;
-            radio.value = searchKey;
-            if(selSearchEndPoint == searchKey){
-              radio.checked = true;
-            }
-            let span = document.createElement('span');
-            span.textContent = kSearchType[searchKey];
-            div.appendChild(radio);
-            div.appendChild(span);
-            divSearch.appendChild(div);
-          } */
-      chrome.storage.sync.get(['selectedSearchType'], function (result) {
-        console.log('Value currently is ' + result.key);
-      });
-
-      //Location
-      var sel = $('<select>').attr("id", "selectEnv").appendTo('form');
+      //Environment
+      var sel = $('<select  class="custom-select">').attr("id", "selectEnv").appendTo('form');
 
       for (let hostKey of Object.keys(kEnvironment)) {
         console.log(kEnvironment[hostKey]["name"]);
         sel.append($("<option>").attr('value', hostKey).text(kEnvironment[hostKey]["name"]));
       }
-
-      /*       let host = document.createElement('div');
-            let hostLabel = document.createElement('label');
-            hostLabel.innerText = "Entorno";
-            host.appendChild(hostLabel);
-            for (let hostKey of Object.keys(kEnvironment)) {
-              let div = document.createElement('div');
-              let radio = document.createElement('input');
-              radio.type = 'radio';
-              radio.name = "searchType";
-              radio.value = kEnvironment[hostKey]["name"];
-              let span = document.createElement('span');
-              span.textContent = kEnvironment[hostKey]["name"];
-              div.appendChild(radio);
-              div.appendChild(span);
-              host.appendChild(div);
-            }
-            form.appendChild(host); */
-
+      
+      $('#selectEnv').on("change",function(){
+        chrome.storage.sync.set({ "selectedEnv": $('#selectEnv').val() }, function () {
+          console.log('Environment saved as ' + $('#selectEnv').val());
+        });
+      });
+      chrome.storage.sync.get("selectedEnv", function(result){
+        console.log("saved Env" + result);
+        
+        console.log();
+        $('#selectEnv').val(result.selectedEnv);
+        
+      });
 
 
       //pushSite
@@ -124,32 +84,14 @@ function createForm() {
       form.appendChild(divPush)
 
 
-      $('#selectEnv').onchange(function(){
-        chrome.storage.sync.set({ "selectedEnv": $('#selectEnv').val() }, function () {
-          console.log('Value is set to ' + $('#selectEnv').val());
-        });
-      });
+
     });
   }
 
 createForm();
 
   document.getElementById('idToSearch').onchange = function () {
-    let text = $('#idToSearch').val();
-    var starts = /^\d/;
-    if (text.match(starts) != null) {
-      if (text.length === 18) {
-        $("#selectSearch").val("eciRef");
-      } else {
-        $("#selectSearch").val("skuId");
-      }
-    } else {
-      if (text[0] === 'o') {
-        $("#selectSearch").val("orderId");
-      } else {
-        $("#selectSearch").val("productId");
-      }
-    }
+    selectSearchTpeByInputID();
     let sst = $("#selectSearch").val();
     chrome.storage.sync.set({ "selectedSearchType": sst }, function () {
       console.log('Value is set to ' + sst);
@@ -158,3 +100,31 @@ createForm();
     //createForm();
   }
 
+
+
+function selectSearchTpeByInputID() {
+  let text = $('#idToSearch').val();
+  var starts = /^\d/;
+  if (text.match(starts) != null) {
+    if (text.length === 18) {
+      $("#selectSearch").val("eciRef");
+    }
+    else {
+      $("#selectSearch").val("skuId");
+    }
+  }
+  else {
+    if (text[0] === 'o') {
+      $("#selectSearch").val("orderId");
+    }
+    else {
+      $("#selectSearch").val("productId");
+    }
+  }
+}
+
+$("#idToSearch").keyup(function(event){
+  if(event.keyCode == 13){
+      $("#searchBtn").click();
+  }
+});
