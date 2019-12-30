@@ -20,59 +20,66 @@
       border-color: darkgreen;
       margin: 5px;
     }
-    .search-box,.close-icon,.search-wrapper {
-	position: relative;
-	padding: 10px;
-}
-.search-wrapper {
-	width: 500px;
-	margin: auto;
-	margin-top: 50px;
-}
-.search-box {
-	width: 80%;
-	border: 1px solid #ccc;
-  outline: 0;
-  border-radius: 5px;
-}
-.search-box:focus {
-	box-shadow: 0 0 5px 5px #b0e0ee;
-	border: 2px solid #bebede;
-}
-.close-icon {
-	border:1px solid transparent;
-	background-color: transparent;
-	display: inline-block;
-	vertical-align: middle;
-  outline: 0;
-  cursor: pointer;
-}
-.close-icon:after {
-	/* content: "\0262d";  */
-  content: "\02718"; 
-	display: block;
-	width: 25px;
-	height: 25px;
-	position: absolute;
-	background-color: #FA9595;
-	z-index:3;
-	right: 35px;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	padding: 2px;
-	border-radius: 50%;
-	text-align: center;
-	color: white;
-	font-weight: normal;
-	font-size: 15px;
-	box-shadow: 0 0 2px #E50F0F;
-	cursor: pointer;
-}
-.search-box:not(:valid) ~ .close-icon {
-	display: none;
-}
 
+    .search-box,
+    .close-icon,
+    .search-wrapper {
+      position: relative;
+      padding: 10px;
+    }
+
+    .search-wrapper {
+      width: 500px;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    .search-box {
+      border: 1px solid #ccc;
+      outline: 0;
+      border-radius: 5px;
+    }
+
+    .search-box:focus {
+      box-shadow: 0 0 5px 5px #b0e0ee;
+      border: 2px solid #bebede;
+    }
+
+    .close-icon {
+      border: 1px solid transparent;
+      background-color: transparent;
+      display: inline-block;
+      vertical-align: middle;
+      outline: 0;
+      cursor: pointer;
+    }
+
+    .close-icon:after {
+      /* content: "\0262d";  */
+      content: "\02718";
+      display: block;
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      background-color: #FA9595;
+      z-index: 3;
+      right: 35px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      padding: 2px;
+      border-radius: 50%;
+      text-align: center;
+      color: white;
+      font-weight: normal;
+      font-size: 15px;
+      box-shadow: 0 0 2px #E50F0F;
+      cursor: pointer;
+    }
+
+    .search-box:not(:valid)~.close-icon {
+      display: none;
+    }
   </style>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -80,23 +87,23 @@
 </head>
 
 <body>
+<div class="container">
   <div class="container">
+    <h1> <span class="badge center badge-success">ECI REST API</span></h1>
+  </div>
+      <div id="divSearch" class="border border-success container-fluid">
+      <form id="form" class="form-inline">
 
-    <p class="h2">ECI REST API</p>
-    <p class="h3">Opciones</p>
-    <form id="form" class="form-inline">
-      <div id="divSearch" class="container">
-      
-        <div class="search-wrapper">
-          <input  type="text" id="idToSearch"  name="focus" required class="search-box " placeholder="Id para buscar" />
-            <button class="close-icon" type="reset"></button>
+        <div>
+          <input type="text" id="idToSearch" name="focus" required class="search-box " placeholder="Id para buscar" />
+          <button class="close-icon" type="reset"></button>
         </div>
         <!-- <input class="form-control" type="text" name="idToSearch" id="idToSearch" placeholder="Id para buscar"> -->
-        <button type="submit" id="searchBtn" class="btn btn-primary mb-2">Consulta</button> 
+        <button type="submit" id="searchBtn" class="btn btn-primary mb-2">Consulta</button>
 
-      </div>
 
-    </form>
+      </form>
+    </div>
   </div>
 </body>
 

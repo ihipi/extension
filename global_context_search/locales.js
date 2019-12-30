@@ -3,8 +3,11 @@
 // found in the LICENSE file.
 
 const kPushSite = {
-  'portugalStore': 'portugalStore',
   'eciStore': 'eciStore',
+  'portugalStore': 'portugalStore',
+  'frStore': 'frStore',
+  'ltcStore': 'ltcStore',
+  'ukStore': 'ukStore' 
 };
 const kEnvironment = {
   "local": {
@@ -43,9 +46,9 @@ const kSearchType = {
   "productId": "/rest/repository/atg/commerce/catalog/ProductCatalog/product/{{id}}",
   "skuId": "/rest/repository/atg/commerce/catalog/ProductCatalog/sku/{{id}}",
   "eciRef": '/rest/repository/atg/commerce/catalog/ProductCatalog/sku/?atg-rest-rql=eciref%20STARTS%20WITH%20"{{id}}"',
-  "orederId":"/rest/repository/atg/commerce/order/OrderRepository/order/{{id}}",
-  "PDP":"/ecommerce/product/{{id}}?siteId=eciStore",
-  "PLP":"/ecommerce/category/{{id}}/products?size=24&siteId=eciStore" 
+  "orderId":"/rest/repository/atg/commerce/order/OrderRepository/order/{{id}}",
+  "PDP":"/ecommerce/product/{{id}}?",
+  "PLP":"/ecommerce/category/{{id}}/products?size=24&" 
 }
 
 var selSearchEndPoint = "";

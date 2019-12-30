@@ -18,16 +18,7 @@ function createForm() {
 
       $('#searchBtn').click(function () {
 
-        let env = $('#selectEnv').val();
-        let serch = $('#selectSearch').val();
-        let endpoint = kSearchType[serch];
-        let id = $('#idToSearch').val();
-        let searchString = endpoint.replace('{{id}}', id);
-        let pushId = $('input[name=push]:checked', '#form').val()
-        let url =
-          kEnvironment[env]["protocol"] + "://" + kEnvironment[env]["host"] + ":" + kEnvironment[env]["port"] + searchString + '?pushSite=' + pushId;
-
-        chrome.tabs.create({ url: url });
+        newSearch();
       });
 
       //SearchType
@@ -82,8 +73,17 @@ function createForm() {
         divPush.appendChild(div);
       }
       form.appendChild(divPush)
+      $('input[type=radio][name=push]').change(function() {
+        chrome.storage.sync.set({ "selectedPushSite": $('input[name=push]:checked', '#form').val() }, function () {
+          console.log('Environment saved as ' + $('input[name=push]:checked', '#form').val());
+        });
+    });
+    chrome.storage.sync.get("selectedPushSite", function(result){
+      console.log("saved Env" + result);
+      $("input[name=push][value=" + result.selectedPushSite + "]").attr('checked', true);
 
-
+      
+    });
 
     });
   }
@@ -97,11 +97,31 @@ createForm();
       console.log('Value is set to ' + sst);
     });
     selSearchEndPoint = sst;
+    //only for debug
     //createForm();
   }
 
 
 
+function newSearch() {
+  let env = $('#selectEnv').val();
+  let serch = $('#selectSearch').val();
+  let endpoint = kSearchType[serch];
+  let id = $('#idToSearch').val();
+  let searchString = endpoint.replace('{{id}}', id);
+
+  let url = pushSite( kEnvironment[env]["protocol"] + "://" + kEnvironment[env]["host"] + ":" + kEnvironment[env]["port"] + searchString );
+  chrome.tabs.create({ url: url });
+}
+function pushSite(url) {
+  let pushId = $('input[name=push]:checked', '#form').val();
+  let pushKey = '?pushSite=';
+  if ($('#selectSearch').val() === 'PDP' ||
+              $('#selectSearch').val() === 'PLP'){
+                pushKey = 'siteId=';
+              }
+  return url + pushKey + pushId;
+}
 function selectSearchTpeByInputID() {
   let text = $('#idToSearch').val();
   var starts = /^\d/;
