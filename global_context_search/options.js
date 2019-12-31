@@ -4,10 +4,6 @@
 
 function createForm() {
 
-
-
-  chrome.storage.sync.get(['removedContextMenu'], function (list) {
-    let removed = list.removedContextMenu || [];
     let form = document.getElementById('form');
 
     
@@ -22,7 +18,11 @@ function createForm() {
       });
 
       //SearchType
-      var sel = $('<select  class="custom-select">').attr("id", "selectSearch").appendTo('form');
+      
+
+      $('<label class="col-sm" for="selectSearch">SearchType</label>').appendTo('form');
+
+      var sel = $('<select  class="custom-select">').attr("id", "selectSearch").attr("name", "selectSearch").appendTo('form');
 
       for (let searchtKey of Object.keys(kSearchType)) {
         sel.append($("<option>").attr('value', searchtKey).text(searchtKey));
@@ -30,7 +30,8 @@ function createForm() {
       selectSearchTpeByInputID();
 
       //Environment
-      var sel = $('<select  class="custom-select">').attr("id", "selectEnv").appendTo('form');
+      $('<label for="selectEnv" class="col-sm" >Entorno</label>').appendTo('form');
+      var sel = $('<select  class="custom-select">').attr("id", "selectEnv").attr("name","selectEnv").appendTo('form');
 
       for (let hostKey of Object.keys(kEnvironment)) {
         console.log(kEnvironment[hostKey]["name"]);
@@ -52,40 +53,26 @@ function createForm() {
 
 
       //pushSite
-      let divPush = document.createElement('div');
-      let pushLabel = document.createElement('label');
-      pushLabel.innerText = "PushSite";
-      divPush.appendChild(pushLabel);
+      $('<label for="selectPush" class="col-sm"  >Site</label>').appendTo('form');
+      var sel = $('<select  class="custom-select">').attr("id", "selectPush").attr("name", "selectPush").appendTo('form');
 
-      for (let key of Object.keys(kPushSite)) {
-        let div = document.createElement('div');
-        let radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = "push";
-        radio.value = kPushSite[key];
-        if ("eciStore" === kPushSite[key]) {
-          radio.checked = true;
-        }
-        let span = document.createElement('span');
-        span.textContent = kPushSite[key];
-        div.appendChild(radio);
-        div.appendChild(span);
-        divPush.appendChild(div);
+      for (let pushKey of Object.keys(kPushSite)) {
+        console.log(kPushSite[pushKey]);
+        sel.append($("<option>").attr('value', pushKey).text(kPushSite[pushKey]));
       }
-      form.appendChild(divPush)
-      $('input[type=radio][name=push]').change(function() {
-        chrome.storage.sync.set({ "selectedPushSite": $('input[name=push]:checked', '#form').val() }, function () {
-          console.log('Environment saved as ' + $('input[name=push]:checked', '#form').val());
+      $('#selectPush').on("change",function(){
+        chrome.storage.sync.set({ "selectedPush": $('#selectPush').val() }, function () {
+          console.log('Environment saved as ' + $('#selectPush').val());
         });
-    });
-    chrome.storage.sync.get("selectedPushSite", function(result){
-      console.log("saved Env" + result);
-      $("input[name=push][value=" + result.selectedPushSite + "]").attr('checked', true);
+      });
+      chrome.storage.sync.get("selectedPush", function(result){
+        console.log("saved Env" + result);
+        
+        console.log();
+        $('#selectPush').val(result.selectedPush);
+        
+      });
 
-      
-    });
-
-    });
   }
 
 createForm();
@@ -114,7 +101,7 @@ function newSearch() {
   chrome.tabs.create({ url: url });
 }
 function pushSite(url) {
-  let pushId = $('input[name=push]:checked', '#form').val();
+  let pushId = $('#selectPush').val();
   let pushKey = '?pushSite=';
   if ($('#selectSearch').val() === 'PDP' ||
               $('#selectSearch').val() === 'PLP'){
