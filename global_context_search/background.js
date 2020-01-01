@@ -29,18 +29,7 @@ chrome.contextMenus.onClicked.addListener(function (item, tab) {
 chrome.storage.onChanged.addListener(function (list, sync) {
   let newlyDisabled = [];
   let newlyEnabled = [];
-/*   let currentRemoved = list.removedContextMenu.newValue;
-  let oldRemoved = list.removedContextMenu.oldValue || [];
-  for (let key of Object.keys(kPushSite)) {
-    if (currentRemoved.includes(key) && !oldRemoved.includes(key)) {
-      newlyDisabled.push(key);
-    } else if (oldRemoved.includes(key) && !currentRemoved.includes(key)) {
-      newlyEnabled.push({
-        id: key,
-        title: kPushSite[key]
-      });
-    }
-  } */
+
   for (let locale of newlyEnabled) {
     chrome.contextMenus.create({
       id: locale.id,
@@ -57,4 +46,21 @@ function setId(id) {
   idToSearch = id;
   let searchId = document.getElementById('idToSearch');
   searchId.innerText = item.selectionText;
+}
+
+function newTapSearch(id, searchType, env, push) {
+  let endpoint = kSearchType[searchType];
+  let searchString = endpoint.replace('{{id}}', id);
+
+
+  let url = kEnvironment[env]["protocol"] + "://" + kEnvironment[env]["host"] + ":" + kEnvironment[env]["port"] + searchString;
+  chrome.tabs.create({ url: pushSite(searchType, url, push) });
+}
+
+function pushSite(searchType, url, push) {
+  let pushKey = '?pushSite=';
+  if (searchType === 'PDP' || searchType === 'PLP') {
+    pushKey = 'siteId=';
+  }
+  return url + pushKey + push;
 }

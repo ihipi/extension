@@ -38,10 +38,11 @@
       border: 1px solid #ccc;
       outline: 0;
       border-radius: 5px;
+      width: 370px;
     }
 
     .search-box:focus {
-      box-shadow: 0 0 5px 5px #b0e0ee;
+      box-shadow: 0 0 3px 3px #b0e0ee;
       border: 2px solid #bebede;
     }
 
@@ -55,8 +56,8 @@
     }
 
     .close-icon:after {
-      /* content: "\0262d";  */
-      content: "\02718";
+      content: "\0262d";  
+      /* content: "\02718"; */
       display: block;
       width: 25px;
       height: 25px;
@@ -87,19 +88,50 @@
 </head>
 
 <body>
-<div class="container">
   <div class="container">
-    <h1> <span class="badge center badge-success">ECI REST API</span></h1>
+    <div class="container">
+      <div class="row">
+      <h1 class="text-center col-12"> <span class="badge text-center badge-success ">ECI REST API</span></h1>
+    </div>
   </div>
-      <div id="divSearch" class="border border-success border-left-0 border-right-0 container-fluid">
+    <div id="divSearch" class="border border-success border-left-0 border-right-0 container">
       <form id="form" class="form-inline">
+        <div class="container">
+            <div>
+                <input type="text" id="idToSearch" name="focus" required class="search-box " placeholder="Id para buscar" />
+                <button class="close-icon" type="reset"></button>
+              </div>
+        </div>
 
-        <div>
-          <input type="text" id="idToSearch" name="focus" required class="search-box " placeholder="Id para buscar" />
-          <button class="close-icon" type="reset"></button>
+        <div class="container">
+        <div class="row"> 
+            <button type="submit" id="searchBtn" class="btn btn-primary mb-2 col">Consulta</button>
+          </div>
         </div>
         <!-- <input class="form-control" type="text" name="idToSearch" id="idToSearch" placeholder="Id para buscar"> -->
-        <button type="submit" id="searchBtn" class="btn btn-primary mb-2">Consulta</button>
+
+        <div class="container">
+          <div class="row">
+            <label class="col-4" for="selectSearch">Search type</label>
+            <select class="custom-select col" id="selectSearch" name="selectSearch"></select>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <label class="col-4" for="selectEnv">Entorno</label>
+            <select class="custom-select col" id="selectEnv" name="selectEnv"></select>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <label class="col-4" for="selectPush">Site</label>
+            <select class="custom-select col" id="selectPush" name="selectPush"></select>
+          </div>
+        </div>
+
+
 
 
       </form>
@@ -112,5 +144,6 @@
 <script src="bootstrap.min.js"></script>
 <script src="locales.js"></script>
 <script src="options.js"></script>
+<script src="background.js"></script>
 
 </html>

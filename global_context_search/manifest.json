@@ -1,6 +1,6 @@
 {
-  "name": "Global Google Search",
-  "description": "Use the context menu to search a different country's Google",
+  "name": "ECI Rest Helper",
+  "description": "navega por las apis de ECI y sus entorno. tambien desde el menú contextual",
   "version": "1.0",
   "manifest_version": 2,
   "options_page": "options.html",
@@ -14,8 +14,8 @@
     "scripts": ["jquery-3.3.1.slim.min.js", "popper.min.js", "bootstrap.min.js", "locales.js", "background.js"]
   },
   "icons": {
-   "16": "globalGoogle16.png",
-   "48": "globalGoogle48.png",
-  "128": "globalGoogle128.png"
+   "16": "eci16.png",
+   "48": "eci48.png",
+  "128": "eci128.png"
  }
 }
