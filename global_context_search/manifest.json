@@ -1,6 +1,6 @@
 {
-  "name": "ECI Rest Helper",
-  "description": "navega por las apis de ECI y sus entorno. tambien desde el menú contextual",
+  "name": "ECI API Helper",
+  "description": "navega por las apis de ECI y sus entorno, desde el menú contextual se puede hacer una busqueda con la selección actual",
   "version": "1.0",
   "manifest_version": 2,
   "options_page": "options.html",
