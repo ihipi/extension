@@ -6,24 +6,37 @@
 // Add a listener to create the initial context menu items,
 // context menu items only need to be created at runtime.onInstalled
 chrome.runtime.onInstalled.addListener(function () {
-  for (let key of Object.keys(kEnvironment)) {
+  for (let key of Object.keys(kSearchType)) {
     chrome.contextMenus.create({
       id: key,
-      title: kEnvironment[key]["name"],
+      title: key,
       type: 'normal',
       contexts: ['all'],
     });
+    
+  
+  for (let envkey of Object.keys(kEnvironment)) {
+    chrome.contextMenus.create({
+      id: key + "_" + envkey,
+      title: kEnvironment[envkey]["name"],
+      type: 'normal',
+      parentId: key,
+      contexts: ['all'],
+    });
   }
+}
 });
 
 
 
 chrome.contextMenus.onClicked.addListener(function (item, tab) {
-
-  setId(id);
-  let url =
-    kEnvironment[item.menuItemId]["protocol"] + "://" + kEnvironment[item.menuItemId]["host"] + ":" + kEnvironment[item.menuItemId]["port"] + '/search?q=' + searchId.innerText;
-  chrome.tabs.create({ url: url, index: tab.index + 1 });
+  var keys = item.menuItemId.split("_");
+  var push = "eciStore";
+  chrome.storage.sync.get("selectedPush", function (result) {
+    push = result.selectedPush;
+  });
+  var id = item.selectionText;
+  newTapSearch(id, keys[0], keys[1], push);
 });
 
 chrome.storage.onChanged.addListener(function (list, sync) {

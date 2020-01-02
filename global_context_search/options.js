@@ -69,6 +69,9 @@ document.getElementById('idToSearch').onchange = function () {
   chrome.storage.sync.set({ "selectedSearchType": sst }, function () {
     console.log('Value is set to ' + sst);
   });
+  chrome.storage.sync.set({ "idToSearch": $('#idToSearch').val() }, function () {
+    console.log('Id to search is set to ' + $('#idToSearch').val());
+  });
   selSearchEndPoint = sst;
   //only for debug
   //createForm();
@@ -77,11 +80,9 @@ document.getElementById('idToSearch').onchange = function () {
 
 
 function newSearch() {
+  let id = $('#idToSearch').val();
   let env = $('#selectEnv').val();
   let search = $('#selectSearch').val();
-  let endpoint = kSearchType[search];
-  let id = $('#idToSearch').val();
-  let searchString = endpoint.replace('{{id}}', id);
   let push = $('#selectPush').val();
   newTapSearch(id, search, env, push);
 }
